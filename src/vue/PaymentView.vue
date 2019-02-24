@@ -118,7 +118,7 @@ import {
   StellarWallet,
   HorizonServer,
   StellarSdk
-} from 'stellarkit-js'
+} from 'stellarkit-js-utils'
 
 export default {
   props: ['donationPublicKey'],

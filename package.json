@@ -1,5 +1,5 @@
 {
-  "name": "stellar-js-ui",
+  "name": "stellarkit-js-ui",
   "version": "1.0.2",
   "description": "Simplified JS UI for Stellar",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "@babel/runtime": "^7.3.1",
     "babel-runtime": "^6.26.0",
     "jquery": "^3.3.1",
-    "stellarkit-js": "git://github.com/StellarKit/stellarkit-js.git",
+    "stellarkit-js-utils": "git://github.com/StellarKit/stellarkit-js-utils.git",
     "stellar-sdk": "^0.13.0",
     "axios": "^0.18.0",
     "@ledgerhq/hw-transport-u2f": "^4.39.0",

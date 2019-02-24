@@ -65,7 +65,7 @@
 <script>
 import {
   Bifrost
-} from 'stellarkit-js'
+} from 'stellarkit-js-utils'
 
 export default {
   props: ['ping', 'params'],
