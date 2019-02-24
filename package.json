@@ -1,0 +1,55 @@
+{
+  "name": "stellar-js-ui",
+  "version": "1.0.2",
+  "description": "Simplified JS UI for Stellar",
+  "license": "MIT",
+  "repository": "github.com/StellarKit/stellar-js-ui",
+  "homepage": "https://stellarkit.io",
+  "main": "dist/build.js",
+  "author": {
+    "name": "Steve Gehrman",
+    "email": "steve@distantfutu.re"
+  },
+  "scripts": {
+    "dist": "webpack --progress --hide-modules",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stellar",
+    "javascript"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.3.1",
+    "babel-runtime": "^6.26.0",
+    "jquery": "^3.3.1",
+    "stellarkit-js": "git://github.com/StellarKit/stellarkit-js.git",
+    "stellar-sdk": "^0.13.0",
+    "axios": "^0.18.0",
+    "@ledgerhq/hw-transport-u2f": "^4.39.0",
+    "@ledgerhq/hw-app-str": "^4.39.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.14.1",
+    "eslint-loader": "2.1.2",
+    "eslint-plugin-vue": "^5.2.2",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "terser": "^3.16.1",
+    "terser-webpack-plugin": "^1.2.2",
+    "vue": "^2.6.7",
+    "vue-loader": "^15.6.4",
+    "vue-template-compiler": "^2.6.7",
+    "vuetify": "^1.5.2",
+    "vuetify-loader": "^1.2.1",
+    "webpack": "^4.29.5",
+    "webpack-bundle-analyzer": "^3.0.4",
+    "webpack-cli": "^3.2.3"
+  }
+}
