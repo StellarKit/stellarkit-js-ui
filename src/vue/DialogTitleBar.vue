@@ -1,59 +1,43 @@
 <template>
-<div class='dialog-header'>
-  <div class='dialog-header-text'>
-    <p>{{title}}</p>
-  </div>
+  <div class="dialog-header">
+    <div class="dialog-header-text">
+      <p>{{title}}</p>
+    </div>
 
-  <div class='left-side-buttons'>
-    <!-- no tooltip, going back rebuilds view and tooltip hangs in the air -->
-    <v-btn
-      v-if='showBack'
-      class='dialog-back-button'
-      icon
-      dark
-      @click="buttonClick('back')"
-      slot="activator"
-    >
-      <v-icon>chevron_left</v-icon>
-    </v-btn>
-  </div>
-
-  <div class='right-side-buttons'>
-    <v-tooltip
-      open-delay='200'
-      bottom
-    >
+    <div class="left-side-buttons">
+      <!-- no tooltip, going back rebuilds view and tooltip hangs in the air -->
       <v-btn
-        small
-        v-if='showPrint'
+        v-if="showBack"
+        class="dialog-back-button"
         icon
         dark
-        @click="buttonClick('print')"
+        @click="buttonClick('back')"
         slot="activator"
       >
-        <v-icon>print</v-icon>
+        <v-icon>chevron_left</v-icon>
       </v-btn>
-      <span>Print</span>
-    </v-tooltip>
+    </div>
 
-    <v-tooltip
-      open-delay='200'
-      bottom
-    >
-      <v-btn
-        small
-        icon
-        dark
-        @click="buttonClick('close')"
-        slot="activator"
-      >
-        <v-icon>{{icon}}</v-icon>
-      </v-btn>
-      <span v-html='tooltip'></span>
-    </v-tooltip>
+    <div class="right-side-buttons">
+      <v-tooltip open-delay="200" bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn small v-if="showPrint" icon dark @click="buttonClick('print')" v-on="on">
+            <v-icon>print</v-icon>
+          </v-btn>
+        </template>
+        <span>Print</span>
+      </v-tooltip>
+
+      <v-tooltip open-delay="200" bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn small icon dark @click="buttonClick('close')" v-on="on">
+            <v-icon>{{icon}}</v-icon>
+          </v-btn>
+        </template>
+        <span v-html="tooltip"></span>
+      </v-tooltip>
+    </div>
   </div>
-
-</div>
 </template>
 
 <script>
@@ -79,54 +63,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../scss/styles.scss';
+@import "../scss/styles.scss";
 .dialog-header {
+  width: 100%;
+  display: flex;
+  position: relative;
+  background: $active-color;
+  padding-right: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  flex: 0 0 36px;
+
+  button {
+    margin: 2px;
+  }
+
+  .left-side-buttons {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .right-side-buttons {
+    flex: 1 1 auto;
     width: 100%;
     display: flex;
-    position: relative;
-    background: $active-color;
-    padding-right: 6px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .5);
-    flex: 0 0 36px;
+    justify-content: flex-end;
+    align-items: center;
+  }
 
-    button {
-        margin: 2px;
+  .dialog-header-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    p {
+      color: $text-color;
+      font-weight: $bold;
+      font-size: 1.1em;
+      margin: 0;
+      user-select: none;
     }
-
-    .left-side-buttons {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-    }
-
-    .right-side-buttons {
-        flex: 1 1 auto;
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .dialog-header-text {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        pointer-events: none;
-        text-align: center;
-
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        p {
-            color: $text-color;
-            font-weight: $bold;
-            font-size: 1.1em;
-            margin: 0;
-            user-select: none;
-        }
-    }
+  }
 }
 </style>
