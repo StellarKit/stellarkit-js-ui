@@ -1,29 +1,14 @@
 <template>
-<v-dialog
-  lazy
-  v-model='visible'
-  scrollable
-  @keydown.esc="visible = false"
-  max-width="600"
->
-  <!-- if visible added below so the view will be destroyed and recreated to reset state -->
-  <div
-    v-if='visible'
-    class='main-container'
-  >
-    <donate-view :donationPublicKey='donationPublicKey' />
+  <v-dialog v-model="visible" scrollable @keydown.esc="visible = false" max-width="600">
+    <!-- if visible added below so the view will be destroyed and recreated to reset state -->
+    <div v-if="visible" class="main-container">
+      <donate-view :donationPublicKey="donationPublicKey" />
 
-    <div class='button-holder'>
-      <v-btn
-        round
-        color='primary'
-        @click="visible = false"
-      >
-        Close
-      </v-btn>
+      <div class="button-holder">
+        <v-btn round color="primary" @click="visible = false">Close</v-btn>
+      </div>
     </div>
-  </div>
-</v-dialog>
+  </v-dialog>
 </template>
 
 <script>
@@ -48,16 +33,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../scss/styles.scss';
+@import "../scss/styles.scss";
 
 .main-container {
-    @include standard-dialog-contents();
+  @include standard-dialog-contents();
 
-    padding: 10px;
+  padding: 10px;
 
-    .button-holder {
-        display: flex;
-        justify-content: flex-end;
-    }
+  .button-holder {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>

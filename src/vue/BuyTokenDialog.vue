@@ -1,71 +1,42 @@
 <template>
-<v-dialog
-  lazy
-  persistent
-  v-model='visible'
-  scrollable
-  @keydown.esc="visible = false"
-  max-width="600"
->
-  <div class='main-container'>
-    <div
-      v-if='!showPurchase'
-      class='start-choice'
-    >
-      <div>What would you like to use to purchase LMB tokens</div>
-      <div class='button-holder'>
-        <v-btn
-          small
-          @click="buttonClick('bitcoin')"
-        >Bitcoin</v-btn>
-        <v-btn
-          small
-          @click="buttonClick('ethereum')"
-        >Ethereum</v-btn>
+  <v-dialog persistent v-model="visible" scrollable @keydown.esc="visible = false" max-width="600">
+    <div class="main-container">
+      <div v-if="!showPurchase" class="start-choice">
+        <div>What would you like to use to purchase LMB tokens</div>
+        <div class="button-holder">
+          <v-btn small @click="buttonClick('bitcoin')">Bitcoin</v-btn>
+          <v-btn small @click="buttonClick('ethereum')">Ethereum</v-btn>
+        </div>
+      </div>
+
+      <div v-if="showPurchase" class="purchase-container">
+        <v-btn small @click="buttonClick('back')">Back</v-btn>
+        <div v-html="sendMessage "></div>
+        <div>Address = {{address}}</div>
+        <p>
+          <strong>Rinkeby testnet. Do not send real coins!</strong>
+        </p>
+        <p>Exchange rate: 1 ETH = 1 LMB token</p>
+        <p>
+          <a href="https://github.com/stellar/go/pull/81 " target="_blank ">Instructions</a>
+        </p>
+        <div class="progress">
+          <v-progress-linear v-model="progress "></v-progress-linear>
+        </div>
+        <div>Status = {{status}}</div>
+        <div>Public Key = {{publicKey}}</div>
+        <div>Secret Key = {{secretKey}}</div>
+      </div>
+
+      <div class="button-holder">
+        <v-btn round color="primary" @click="visible = false">Close</v-btn>
       </div>
     </div>
-
-    <div
-      v-if='showPurchase'
-      class="purchase-container"
-    >
-      <v-btn
-        small
-        @click="buttonClick('back')"
-      >Back</v-btn>
-      <div v-html="sendMessage "></div>
-      <div>Address = {{address}}</div>
-      <p><strong>Rinkeby testnet. Do not send real coins!</strong></p>
-      <p>Exchange rate: 1 ETH = 1 LMB token</p>
-      <p><a
-          href="https://github.com/stellar/go/pull/81 "
-          target="_blank "
-        >Instructions</a></p>
-      <div class="progress ">
-        <v-progress-linear v-model="progress "></v-progress-linear>
-      </div>
-      <div>Status = {{status}}</div>
-      <div>Public Key = {{publicKey}}</div>
-      <div>Secret Key = {{secretKey}}</div>
-    </div>
-
-    <div class='button-holder'>
-      <v-btn
-        round
-        color='primary'
-        @click="visible = false"
-      >
-        Close
-      </v-btn>
-    </div>
-  </div>
-</v-dialog>
+  </v-dialog>
 </template>
 
 <script>
-import {
-  Bifrost
-} from 'stellarkit-js-utils'
+import { Bifrost } from 'stellarkit-js-utils'
 
 export default {
   props: ['ping', 'params'],
@@ -105,14 +76,15 @@ export default {
       this.purchaseCoin = 'btc'
       this.initBifrost()
 
-      this.session.startBitcoin(this.onEvent)
-        .then((result) => {
+      this.session
+        .startBitcoin(this.onEvent)
+        .then(result => {
           this.setStatus('Waiting for a transaction...', 10)
           this.address = result.address
           this.publicKey = result.keypair.publicKey()
           this.secretKey = result.keypair.secret()
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(JSON.stringify(error))
           console.log(error)
         })
@@ -122,14 +94,15 @@ export default {
       this.purchaseCoin = 'eth'
       this.initBifrost()
 
-      this.session.startEthereum(this.onEvent)
-        .then((result) => {
+      this.session
+        .startEthereum(this.onEvent)
+        .then(result => {
           this.setStatus('Waiting for a transaction...', 10)
           this.address = result.address
           this.publicKey = result.keypair.publicKey()
           this.secretKey = result.keypair.secret()
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(JSON.stringify(error))
           console.log(error)
         })
@@ -150,7 +123,13 @@ export default {
           this.setStatus('Account configured, waiting for tokens...', 60)
           break
         case Bifrost.ExchangedTimelockedEvent:
-          this.setStatus('Congrats! TOKE purchased but will be locked.' + '</pre>\nUnlock transaction: <pre>' + data.transaction + '</pre>', 100)
+          this.setStatus(
+            'Congrats! TOKE purchased but will be locked.' +
+              '</pre>\nUnlock transaction: <pre>' +
+              data.transaction +
+              '</pre>',
+            100
+          )
           break
         case Bifrost.ExchangedEvent:
           this.setStatus('Congrats! TOKE purchased.', 100)
